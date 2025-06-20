@@ -22,14 +22,14 @@ from raw.jaffle_shop.customers C
 left join raw.jaffle_shop.orders as Orders
 on orders.USER_ID = C.ID 
 group by 1)
-
+ 
 select
 p.*,
 ROW_NUMBER() OVER (ORDER BY p.order_id) as transaction_seq,
 ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY p.order_id) as customer_sales_seq,
 CASE WHEN c.first_order_date = p.order_placed_at
 THEN 'new'
-ELSE 'return' END as nvsr,
+ELSE 'return1' END as nvsr,
 x.clv_bad as customer_lifetime_value,
 c.first_order_date as fdos
 FROM paid_orders p
